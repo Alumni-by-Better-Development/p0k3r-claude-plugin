@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { findOpenedHandId, pluginConfig } from '../plugins/p0k3r/scripts/session-end.mjs';
+import { findOpenedHandId, pluginConfig } from '../plugins/p0k3r/scripts/lib.mjs';
 
 const call = (name, input) =>
   JSON.stringify({ type: 'assistant', message: { content: [{ type: 'tool_use', name, input }] } });
