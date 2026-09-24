@@ -26,7 +26,7 @@ Chame `headsup_briefing` com o id da mão. Leia o briefing (o contexto desta mã
 
 - **Compromisso:** quando combinarem uma entrega, use `headsup_apresentar` com o nome do entregável, uma descrição objetiva e as fichas de tempo acordadas (`headsup_apresentar_aposta` se o entregável já existe). Só funciona na fase `novas_apostas`. Se fizer sentido, anexe o compromisso em Markdown (`compromisso`).
 - **Apostar junto:** para entrar numa aposta da pessoa, use `headsup_apresentar` ou `headsup_apresentar_aposta` com `origemApostaId` (de `headsup_estado`) e `vinculo: "joint"`. Para continuar uma aposta sua, `continuity`; para reapostar, `rebet`.
-- **Entrega:** ao terminar, use `headsup_entregar` com a aposta, um título e o resultado em Markdown — o que foi feito, onde e como verificar. A aposta fica aguardando o veredito do líder, que é humano: você não se valida.
+- **Entrega:** ao terminar, use `headsup_entregar` com a aposta, um título e o resultado em Markdown — o que foi feito, onde e como verificar. O resultado vai para o entregável e a aposta fica concluída; a apresentação e o veredito do líder, que é humano, acontecem nas Apresentações da próxima mão, como para qualquer jogador. Você não se valida.
 - **Rodadas:** em `novas_apostas` cabem várias rodadas na mesma mão — aposta, trabalho, entrega, e de novo.
 - **Entregável sem aposta:** `headsup_criar_entregavel`, quando a pessoa quiser registrar um trabalho que vira aposta depois.
 - **Fase:** só use `headsup_transitar_fase` quando a pessoa pedir e `headsup_fase` oferecer `transitar` para a fase desejada. `headsup_finalizar_mao` encerra a mão — só quando a pessoa pedir.
