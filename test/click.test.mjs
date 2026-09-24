@@ -67,6 +67,7 @@ test('registro do protocolo aponta para o manipulador com o link', () => {
   );
   assert.ok(macAppleScript('/n/node', '/h.mjs').includes('on open location theURL'));
   assert.ok(linuxDesktopEntry('/n/node', '/h.mjs').includes('MimeType=x-scheme-handler/p0k3r;'));
+  assert.ok(linuxDesktopEntry('/n/node', '/h.mjs', '/i/p0k3r.png').includes('Icon=/i/p0k3r.png'));
 });
 
 test('a pasta fica ligada à mesa aberta', async () => {

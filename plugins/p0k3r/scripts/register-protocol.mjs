@@ -48,12 +48,13 @@ export function macAppleScript(node, handler) {
 }
 
 /** Entrada .desktop do Linux para o esquema `x-scheme-handler/p0k3r`. */
-export function linuxDesktopEntry(node, handler) {
+export function linuxDesktopEntry(node, handler, icon) {
   return [
     '[Desktop Entry]',
     'Type=Application',
     'Name=P0K3R Launcher',
     `Exec="${node}" "${handler}" %u`,
+    ...(icon ? [`Icon=${icon}`] : []),
     'NoDisplay=true',
     'MimeType=x-scheme-handler/p0k3r;',
     '',
@@ -66,6 +67,8 @@ function run(file, args) {
     throw new Error(`${file} ${args.join(' ')}: ${(result.stderr || result.stdout || '').trim()}`);
   }
 }
+
+const ASSETS = join(dirname(fileURLToPath(import.meta.url)), '..', 'assets');
 
 /** Copia o manipulador para ~/.p0k3r/bin e devolve o caminho dele. */
 async function installHandler() {
@@ -94,6 +97,11 @@ async function registerMac(node, handler) {
   buddy('Add :CFBundleURLTypes:0:CFBundleURLName string P0K3R');
   buddy('Add :CFBundleURLTypes:0:CFBundleURLSchemes array');
   buddy('Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string p0k3r');
+  // Ícone do P0K3R: o applet traz um catálogo (Assets.car + CFBundleIconName)
+  // que tem prioridade sobre o .icns — sai o catálogo, entra o nosso .icns.
+  await copyFile(join(ASSETS, 'P0K3R.icns'), join(MAC_APP, 'Contents', 'Resources', 'applet.icns'));
+  await rm(join(MAC_APP, 'Contents', 'Resources', 'Assets.car'), { force: true });
+  spawnSync('/usr/libexec/PlistBuddy', ['-c', 'Delete :CFBundleIconName', plist]);
   // Mexer no Info.plist quebra a assinatura do applet; sem reassinar, o macOS
   // recusa abrir ("app danificado").
   run('codesign', ['--force', '--deep', '--sign', '-', MAC_APP]);
@@ -102,8 +110,10 @@ async function registerMac(node, handler) {
 }
 
 async function registerLinux(node, handler) {
+  const icon = join(p0k3rHome(), 'p0k3r.png');
+  await copyFile(join(ASSETS, 'p0k3r-256.png'), icon);
   await mkdir(dirname(LINUX_DESKTOP), { recursive: true });
-  await writeFile(LINUX_DESKTOP, linuxDesktopEntry(node, handler));
+  await writeFile(LINUX_DESKTOP, linuxDesktopEntry(node, handler, icon));
   run('xdg-mime', ['default', 'p0k3r-launcher.desktop', 'x-scheme-handler/p0k3r']);
   return LINUX_DESKTOP;
 }
