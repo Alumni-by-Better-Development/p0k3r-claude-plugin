@@ -11,10 +11,18 @@ claude plugin marketplace add Alumni-by-Better-Development/p0k3r-claude-plugin
 claude plugin install p0k3r@p0k3r
 ```
 
-Na instalação, o Claude Code pede:
+Depois, **dentro do Claude Code** (rode `claude`), configure o plugin:
+
+```
+/plugin configure p0k3r@p0k3r
+```
+
+Ele pede:
 
 - **Token do P0K3R.** Gere na mão heads-up, no botão **Conectar Claude Code**. O Claude Code guarda o token como segredo. Gerar outro token invalida o anterior.
 - **Servidor do P0K3R.** Deixe o padrão (`https://house.p0k3r.com.br`). Só muda para testar em outro ambiente.
+
+Comandos com `/` (como `/plugin configure` e `/p0k3r:ativar-clique`) são digitados **dentro** do Claude Code. No terminal, fora dele, a forma é `claude "/p0k3r:abrir-mao 123"`.
 
 ## Usar
 
@@ -31,7 +39,7 @@ claude "/p0k3r:abrir-mao 123"
 
 ## Abrir a mão com um clique (opcional)
 
-Uma vez por computador, dentro do Claude Code:
+Uma vez por computador, digitado **dentro** do Claude Code (não peça ao Claude: essa skill só roda digitada, porque mexe no sistema):
 
 ```
 /p0k3r:ativar-clique

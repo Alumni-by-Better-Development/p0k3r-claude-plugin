@@ -1,7 +1,6 @@
 ---
 description: Abre uma mão heads-up do P0K3R nesta sessão. O Claude joga como K0D3 — faz o check-in, lê o briefing e, a partir daí, aposta e entrega pelo MCP do P0K3R.
 argument-hint: <id da mão>
-disable-model-invocation: true
 allowed-tools: mcp__plugin_p0k3r_p0k3r__list_tables mcp__plugin_p0k3r_p0k3r__open_hand mcp__plugin_p0k3r_p0k3r__get_affordances mcp__plugin_p0k3r_p0k3r__get_timeline
 ---
 
