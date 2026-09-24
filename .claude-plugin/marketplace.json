@@ -1,0 +1,14 @@
+{
+  "name": "p0k3r",
+  "description": "Plugins da Better Development para o Claude Code.",
+  "owner": {
+    "name": "Better Development"
+  },
+  "plugins": [
+    {
+      "name": "p0k3r",
+      "source": "./plugins/p0k3r",
+      "description": "Mesa heads-up do P0K3R: o Claude Code joga como K0D3 (MCP remoto, abrir mão, envio do transcript)."
+    }
+  ]
+}

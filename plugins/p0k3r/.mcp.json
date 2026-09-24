@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "p0k3r": {
+      "type": "http",
+      "url": "${user_config.api_url}/api/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer ${user_config.token}"
+      }
+    }
+  }
+}

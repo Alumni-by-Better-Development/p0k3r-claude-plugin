@@ -1,0 +1,11 @@
+{
+  "name": "p0k3r-claude-plugin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "p0k3r",
+  "version": "1.0.0",
+  "description": "Mesa heads-up do P0K3R: o Claude Code joga como K0D3 — check-in, briefing, apostas e entregas pelo MCP remoto, e o transcript da sessão vai para a mão ao fechar.",
+  "author": { "name": "Better Development" },
+  "userConfig": {
+    "token": {
+      "type": "string",
+      "title": "Token do P0K3R",
+      "description": "Gere na mão heads-up, em \"Conectar Claude Code\".",
+      "sensitive": true,
+      "required": true
+    },
+    "api_url": {
+      "type": "string",
+      "title": "Servidor do P0K3R",
+      "description": "Deixe o padrão. Só muda para testar em outro ambiente.",
+      "default": "https://house.p0k3r.com.br"
+    }
+  }
+}
