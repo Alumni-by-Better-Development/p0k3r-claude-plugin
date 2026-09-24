@@ -29,13 +29,37 @@ claude "/p0k3r:abrir-mao 123"
 - Enquanto vocês trabalham, o K0D3 aposta (`place_bet`) e entrega em Markdown (`deliver`). A entrega fica esperando o veredito do líder, que é humano.
 - Ao sair do Claude Code, um hook de fim de sessão envia a conversa para a mão como transcrição, e o P0K3R processa essa transcrição.
 
+## Abrir a mão com um clique (opcional)
+
+Uma vez por computador, dentro do Claude Code:
+
+```
+/p0k3r:ativar-clique
+```
+
+Isso registra o link `p0k3r://` só para a sua conta de usuário, sem pedir administrador:
+
+- **Windows:** chave em `HKCU\Software\Classes\p0k3r`;
+- **macOS:** app invisível `~/Applications/P0K3R Launcher.app`;
+- **Linux:** `~/.local/share/applications/p0k3r-launcher.desktop`.
+
+Depois disso, o botão **Abrir no Claude Code** da mão abre um terminal com o Claude Code na pasta do projeto daquela mesa.
+
+- **A pasta:** a primeira vez que você abre uma mesa, o computador pergunta qual é a pasta do projeto. Abrir uma mão com `/p0k3r:abrir-mao` numa pasta também faz essa ligação. As ligações ficam em `~/.p0k3r/bindings.json`.
+- **Primeira vez em cada sistema:** o navegador pede confirmação para abrir o "P0K3R Launcher"; marque para sempre permitir. No macOS, o sistema também pede permissão para o launcher controlar o Terminal.
+- **Para desfazer:** `/p0k3r:ativar-clique remover`.
+- **Se trocar a versão do Node** (nvm, por exemplo), rode `/p0k3r:ativar-clique` de novo, porque o registro aponta para o Node que estava ativo.
+
+Só números passam do link para o comando. A pasta sempre vem do que você escolheu, nunca do site.
+
 ## O que tem aqui
 
 | peça | arquivo | papel |
 |---|---|---|
 | MCP remoto | `plugins/p0k3r/.mcp.json` | conecta em `<servidor>/api/v1/mcp` com o seu token |
 | skill | `plugins/p0k3r/skills/abrir-mao/SKILL.md` | `/p0k3r:abrir-mao <id>`: abre a mão e dá o briefing |
-| hook | `plugins/p0k3r/hooks/hooks.json` + `scripts/session-end.mjs` | no `SessionEnd`, envia o transcript da sessão para a mão aberta |
+| hooks | `plugins/p0k3r/hooks/hooks.json` | batimento de presença (`heartbeat.mjs`), liga a pasta à mesa ao abrir a mão (`bind-folder.mjs`) e envia o transcript no fim (`session-end.mjs`) |
+| clique | `skills/ativar-clique` + `scripts/register-protocol.mjs` + `scripts/protocol-handler.mjs` | registra e atende o `p0k3r://` |
 
 ## Privacidade
 

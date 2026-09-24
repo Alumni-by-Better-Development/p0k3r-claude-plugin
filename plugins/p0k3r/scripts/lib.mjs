@@ -1,4 +1,7 @@
-/** Funções comuns aos hooks do plugin p0k3r. */
+/** Funções comuns aos hooks e scripts do plugin p0k3r. */
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { homedir } from 'node:os';
+import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const DEFAULT_API_URL = 'https://house.p0k3r.com.br';
@@ -47,4 +50,34 @@ export function runIfMain(metaUrl, main) {
   main().catch((error) => {
     console.error(`[p0k3r] ${error?.message ?? error}`);
   });
+}
+
+/**
+ * Pasta local do P0K3R (`~/.p0k3r`): estado dos hooks, as pastas ligadas a
+ * cada mesa e o manipulador do `p0k3r://`. Fora da pasta do plugin, que muda
+ * de caminho a cada atualização.
+ */
+export function p0k3rHome(env = process.env) {
+  return env.P0K3R_HOME || join(homedir(), '.p0k3r');
+}
+
+/** Pasta de projeto ligada a cada mesa heads-up: `{ [tableId]: { cwd, at } }`. */
+export function bindingsFile(env = process.env) {
+  return join(p0k3rHome(env), 'bindings.json');
+}
+
+export async function readBindings(env = process.env) {
+  try {
+    return JSON.parse(await readFile(bindingsFile(env), 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+export async function bindTable(tableId, cwd, env = process.env) {
+  const bindings = await readBindings(env);
+  bindings[String(tableId)] = { cwd, at: new Date().toISOString() };
+  const file = bindingsFile(env);
+  await mkdir(dirname(file), { recursive: true });
+  await writeFile(file, JSON.stringify(bindings, null, 2));
 }

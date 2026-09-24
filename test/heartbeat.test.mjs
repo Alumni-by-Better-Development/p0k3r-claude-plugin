@@ -8,8 +8,8 @@ test('avisa no primeiro sinal e depois só a cada intervalo', () => {
   assert.equal(isDue(1000, 1000 + INTERVAL_MS), true);
 });
 
-test('estado por sessão fica na pasta de dados do plugin', () => {
-  const { dir, file } = stateFile({ CLAUDE_PLUGIN_DATA: '/dados' }, 'abc-123/../x');
-  assert.equal(dir, '/dados');
-  assert.equal(file, '/dados/heartbeat-abc-123x.json');
+test('estado por sessão fica em ~/.p0k3r/state', () => {
+  const { dir, file } = stateFile({ P0K3R_HOME: '/dados' }, 'abc-123/../x');
+  assert.equal(dir, '/dados/state');
+  assert.equal(file, '/dados/state/heartbeat-abc-123x.json');
 });

@@ -13,6 +13,16 @@
     ],
     "PostToolUse": [
       {
+        "matcher": "mcp__.*p0k3r.*__open_hand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/bind-folder.mjs\"",
+            "timeout": 5
+          }
+        ]
+      },
+      {
         "hooks": [
           {
             "type": "command",

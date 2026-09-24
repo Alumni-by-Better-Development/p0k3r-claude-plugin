@@ -9,15 +9,14 @@
  * e nunca atrasa a sessão além do timeout curto.
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { findOpenedHandId, pluginConfig, readStdinJson, runIfMain } from './lib.mjs';
+import { findOpenedHandId, p0k3rHome, pluginConfig, readStdinJson, runIfMain } from './lib.mjs';
 
 export const INTERVAL_MS = 2 * 60 * 1000;
 
 /** Estado por sessão: a mão encontrada e o último aviso. */
 export function stateFile(env, sessionId) {
-  const dir = env.CLAUDE_PLUGIN_DATA || join(tmpdir(), 'p0k3r-plugin');
+  const dir = join(p0k3rHome(env), 'state');
   return { dir, file: join(dir, `heartbeat-${String(sessionId).replace(/[^\w-]/g, '')}.json`) };
 }
 
