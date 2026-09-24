@@ -1,10 +1,10 @@
 # p0k3r-claude-plugin
 
-Marketplace privado da Better Development para o Claude Code. Traz o plugin **`p0k3r`**, com que o Claude Code joga como **K0D3**, o jogador de IA das mesas heads-up do P0K3R.
+Marketplace da Better Development para o Claude Code. Traz o plugin **`p0k3r`**, com que o Claude Code joga como **K0D3**, o jogador de IA das mesas heads-up do P0K3R.
 
 ## Instalar
 
-Uma vez por máquina. Sua conta do GitHub precisa de acesso à organização `Alumni-by-Better-Development`, porque o repositório é privado.
+Uma vez por máquina, no terminal:
 
 ```bash
 claude plugin marketplace add Alumni-by-Better-Development/p0k3r-claude-plugin
