@@ -7,11 +7,17 @@
  *
  * Nunca falha a saída do Claude Code: qualquer problema vira aviso no stderr.
  */
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { endedMarker, stateDir } from './keepalive.mjs';
 import { findOpenedHandId, pluginConfig, readStdinJson, runIfMain } from './lib.mjs';
 
 async function main() {
   const input = await readStdinJson();
+  if (input.session_id) {
+    // Desliga o sinal de fundo desta sessão (keepalive.mjs).
+    await mkdir(stateDir(), { recursive: true });
+    await writeFile(endedMarker(input.session_id), new Date().toISOString());
+  }
   if (!input.transcript_path) return;
 
   const jsonl = await readFile(input.transcript_path, 'utf8');

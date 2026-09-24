@@ -66,7 +66,7 @@ Só números passam do link para o comando. A pasta sempre vem do que você esco
 |---|---|---|
 | MCP remoto | `plugins/p0k3r/.mcp.json` | conecta em `<servidor>/api/v1/mcp` com o seu token |
 | skill | `plugins/p0k3r/skills/abrir-mao/SKILL.md` | `/p0k3r:abrir-mao <id>`: abre a mão e dá o briefing |
-| hooks | `plugins/p0k3r/hooks/hooks.json` | batimento de presença (`heartbeat.mjs`), liga a pasta à mesa ao abrir a mão (`bind-folder.mjs`) e envia o transcript no fim (`session-end.mjs`) |
+| hooks | `plugins/p0k3r/hooks/hooks.json` | sinal de fundo enquanto a sessão existe (`keepalive.mjs`), batimento a cada mensagem (`heartbeat.mjs`), liga a pasta à mesa ao abrir a mão (`bind-folder.mjs`) e envia o transcript no fim (`session-end.mjs`) |
 | clique | `skills/ativar-clique` + `scripts/register-protocol.mjs` + `scripts/protocol-handler.mjs` | registra e atende o `p0k3r://` |
 
 ## Privacidade
