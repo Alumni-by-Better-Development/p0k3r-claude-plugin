@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * SessionEnd do plugin p0k3r: se a sessão abriu uma mão heads-up (chamou a
- * ferramenta open_hand do MCP p0k3r), envia o transcript para essa mão. O
+ * ferramenta headsup_entrar do MCP p0k3r), envia o transcript para essa mão. O
  * P0K3R converte, grava como transcrição e apaga a presença do K0D3. O id da
  * sessão vai junto: uma sessão retomada substitui o transcript, não duplica.
  *

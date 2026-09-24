@@ -32,9 +32,9 @@ Na pasta do projeto em que você vai trabalhar:
 claude "/p0k3r:abrir-mao 123"
 ```
 
-- A skill abre a mão pelo MCP do P0K3R. Isso faz o check-in do K0D3 e acende o avatar dele na mesa.
+- A skill abre a mão pelo MCP do P0K3R (`headsup_entrar`). Isso faz o check-in do K0D3 e acende o avatar dele na mesa.
 - Depois, a skill apresenta o briefing: fase, afordâncias e apostas em aberto.
-- Enquanto vocês trabalham, o K0D3 aposta (`place_bet`) e entrega em Markdown (`deliver`). A entrega fica esperando o veredito do líder, que é humano.
+- Enquanto vocês trabalham, o K0D3 aposta (`headsup_apresentar`) e entrega em Markdown (`headsup_entregar`). A entrega fica esperando o veredito do líder, que é humano.
 - Ao sair do Claude Code, um hook de fim de sessão envia a conversa para a mão como transcrição, e o P0K3R processa essa transcrição.
 
 ## Abrir a mão com um clique (opcional)
@@ -71,7 +71,7 @@ Só números passam do link para o comando. A pasta sempre vem do que você esco
 
 ## Privacidade
 
-O hook só envia algo quando a sessão abriu uma mão do P0K3R, ou seja, quando chamou a ferramenta `open_hand`. Nesse caso, ele envia **a sessão inteira**, incluindo o código e os caminhos que apareceram nela. Se a sessão tratou de algo que não deve ir para a mão, abra outra sessão para isso.
+O hook só envia algo quando a sessão abriu uma mão do P0K3R, ou seja, quando chamou a ferramenta `headsup_entrar`. Nesse caso, ele envia **a sessão inteira**, incluindo o código e os caminhos que apareceram nela. Se a sessão tratou de algo que não deve ir para a mão, abra outra sessão para isso.
 
 ## Desenvolvimento
 

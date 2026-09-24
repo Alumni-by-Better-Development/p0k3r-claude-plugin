@@ -5,13 +5,14 @@ import { dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const DEFAULT_API_URL = 'https://house.p0k3r.com.br';
-const OPEN_HAND_TOOL = /^mcp__.*p0k3r.*__open_hand$/;
+// `headsup_entrar` (nome do toolkit original do K0D3); `open_hand` é o nome antigo.
+const OPEN_HAND_TOOL = /^mcp__.*p0k3r.*__(headsup_entrar|open_hand)$/;
 
 /** A última mão aberta na sessão, lida das chamadas de ferramenta do transcript. */
 export function findOpenedHandId(jsonl) {
   let handId = null;
   for (const line of jsonl.split('\n')) {
-    if (!line.includes('open_hand')) continue;
+    if (!line.includes('headsup_entrar') && !line.includes('open_hand')) continue;
     let entry;
     try {
       entry = JSON.parse(line);

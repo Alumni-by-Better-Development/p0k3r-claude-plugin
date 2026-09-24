@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * PostToolUse do open_hand: a pasta em que a mão foi aberta passa a ser a
+ * PostToolUse do headsup_entrar: a pasta em que a mão foi aberta passa a ser a
  * pasta daquela mesa. É ela que o clique no P0K3R (`p0k3r://`) abre depois.
  */
 import { bindTable, readStdinJson, runIfMain } from './lib.mjs';
 
-/** Id da mesa na resposta do open_hand (texto JSON dentro do resultado MCP). */
+/** Id da mesa na resposta do headsup_entrar (texto JSON dentro do resultado MCP). */
 export function tableIdFromResponse(response) {
   const blocks = Array.isArray(response) ? response : (response?.content ?? [response]);
   for (const block of blocks) {

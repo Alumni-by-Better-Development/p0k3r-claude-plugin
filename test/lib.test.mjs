@@ -15,6 +15,10 @@ test('acha a última mão aberta pelo MCP do plugin', () => {
   assert.equal(findOpenedHandId(jsonl), 12);
 });
 
+test('reconhece headsup_entrar, o nome do toolkit original', () => {
+  assert.equal(findOpenedHandId(call('mcp__plugin_p0k3r_p0k3r__headsup_entrar', { handId: 21 })), 21);
+});
+
 test('também reconhece o MCP adicionado à mão (claude mcp add)', () => {
   assert.equal(findOpenedHandId(call('mcp__p0k3r__open_hand', { handId: 7 })), 7);
 });

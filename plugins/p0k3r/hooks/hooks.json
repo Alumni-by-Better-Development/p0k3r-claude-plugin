@@ -24,7 +24,7 @@
     ],
     "PostToolUse": [
       {
-        "matcher": "mcp__.*p0k3r.*__open_hand",
+        "matcher": "mcp__.*p0k3r.*__(headsup_entrar|open_hand)",
         "hooks": [
           {
             "type": "command",
