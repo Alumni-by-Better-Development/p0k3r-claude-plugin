@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * SessionEnd do plugin p0k3r: se a sessão abriu uma mão heads-up (chamou a
- * ferramenta headsup_entrar do MCP p0k3r), envia o transcript para essa mão. O
+ * ferramenta headsup_entrar do MCP p0k3r), envia as falas da sessão para essa
+ * mão (sem resultados de ferramenta; o P0K3R ainda tira segredos). O
  * P0K3R converte, grava como transcrição e apaga a presença do K0D3. O id da
  * sessão vai junto: uma sessão retomada substitui o transcript, não duplica.
  *
@@ -9,7 +10,7 @@
  */
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { endedMarker, stateDir } from './keepalive.mjs';
-import { findOpenedHandId, pluginConfig, readStdinJson, runIfMain } from './lib.mjs';
+import { findOpenedHandId, pluginConfig, readStdinJson, runIfMain, spokenOnly } from './lib.mjs';
 
 async function main() {
   const input = await readStdinJson();
@@ -34,7 +35,8 @@ async function main() {
   if (input.session_id) form.append('sessionId', String(input.session_id));
   form.append(
     'transcript',
-    new Blob([jsonl], { type: 'application/x-ndjson' }),
+    // Só as falas: arquivos lidos e saídas de comando ficam no computador.
+    new Blob([spokenOnly(jsonl)], { type: 'application/x-ndjson' }),
     `claude-code-${input.session_id ?? 'sessao'}.jsonl`
   );
   const res = await fetch(`${apiUrl}/api/v1/mcp/hands/${handId}/transcript`, {

@@ -8,6 +8,39 @@ const DEFAULT_API_URL = 'https://house.p0k3r.com.br';
 // `headsup_entrar` (nome do toolkit original do K0D3); `open_hand` é o nome antigo.
 const OPEN_HAND_TOOL = /^mcp__.*p0k3r.*__(headsup_entrar|open_hand)$/;
 
+/**
+ * Só as falas da sessão (o que a pessoa escreveu e o que o Claude respondeu),
+ * no mesmo formato JSONL. Resultados de ferramenta — arquivos lidos, saídas de
+ * comando — nunca saem do computador, e o envio fica pequeno.
+ */
+export function spokenOnly(jsonl) {
+  const lines = [];
+  for (const raw of jsonl.split('\n')) {
+    if (!raw.trim()) continue;
+    let entry;
+    try {
+      entry = JSON.parse(raw);
+    } catch {
+      continue;
+    }
+    if (entry?.isMeta || entry?.isSidechain) continue;
+    if (entry?.type !== 'user' && entry?.type !== 'assistant') continue;
+    const content = entry.message?.content;
+    const text =
+      typeof content === 'string'
+        ? content
+        : Array.isArray(content)
+          ? content
+              .filter((block) => block?.type === 'text' && typeof block.text === 'string')
+              .map((block) => block.text)
+              .join('\n')
+          : '';
+    if (!text.trim()) continue;
+    lines.push(JSON.stringify({ type: entry.type, timestamp: entry.timestamp, message: { content: text } }));
+  }
+  return lines.join('\n');
+}
+
 /** A última mão aberta na sessão, lida das chamadas de ferramenta do transcript. */
 export function findOpenedHandId(jsonl) {
   let handId = null;
